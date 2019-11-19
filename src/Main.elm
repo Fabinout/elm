@@ -39,6 +39,7 @@ init =
 type Msg
   = Increment
   | Decrement
+  | Decuple
 
 
 update : Msg -> Model -> Model
@@ -50,7 +51,8 @@ update msg model =
     Decrement ->
       model - 1
 
-
+    Decuple ->
+        model * 10
 
 -- VIEW
 
@@ -58,7 +60,8 @@ update msg model =
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ onClick Decrement ] [ text "-" ]
+    [ button [ onClick Decrement ] [ text "-" ] ,
+     button [ onClick Decuple ] [ text "x10" ]
     , div [] [ text (String.fromInt model) ]
     , button [ onClick Increment ] [ text "+" ]
     ]
