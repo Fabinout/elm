@@ -40,6 +40,7 @@ type Msg
   = Increment
   | Decrement
   | Decuple
+  | Divide
 
 
 update : Msg -> Model -> Model
@@ -54,6 +55,10 @@ update msg model =
     Decuple ->
         model * 10
 
+    Divide ->
+        model // 10
+
+
 -- VIEW
 
 
@@ -64,4 +69,5 @@ view model =
      button [ onClick Decuple ] [ text "x10" ]
     , div [] [ text (String.fromInt model) ]
     , button [ onClick Increment ] [ text "+" ]
+    , button [ onClick Divide ] [ text "/10" ]
     ]
