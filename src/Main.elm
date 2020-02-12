@@ -1,5 +1,4 @@
 module Main exposing (..)
-
 -- Press buttons to increment and decrement a counter.
 --
 -- Read how it works:
@@ -8,8 +7,9 @@ module Main exposing (..)
 
 
 import Browser
-import Html exposing (Html, button, div, text)
-import Html.Events exposing (onClick)
+import Html exposing (Html, div, input, text)
+import Html.Attributes exposing (placeholder, value)
+import Html.Events exposing (onInput)
 
 
 
@@ -23,40 +23,27 @@ main =
 
 -- MODEL
 
-
-type alias Model = Int
+type alias Model =
+  { content : String
+  }
 
 
 init : Model
 init =
-  10
-
+  { content = "kljqsdfmjk" }
 
 
 -- UPDATE
 
 
 type Msg
-  = Increment
-  | Decrement
-  | Decuple
-  | Divide
-
+  = Change String
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-    Increment ->
-      model + 1
-
-    Decrement ->
-      model - 1
-
-    Decuple ->
-        model * 10
-
-    Divide ->
-        model // 10
+      Change string ->
+        { model | content = string }
 
 
 -- VIEW
@@ -65,9 +52,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ onClick Decrement ] [ text "-" ] ,
-     button [ onClick Decuple ] [ text "x10" ]
-    , div [] [ text (String.fromInt model) ]
-    , button [ onClick Increment ] [ text "+" ]
-    , button [ onClick Divide ] [ text "/10" ]
+    [ input [placeholder "texte à inverser", value model.content, onInput Change]  []
+    ,
+    div [] [text (String.reverse model.content)]
     ]
