@@ -7,9 +7,9 @@ module Main exposing (..)
 
 
 import Browser
-import Html exposing (Html, div, input, text)
+import Html exposing (Html, div, button, text)
 import Html.Attributes exposing (placeholder, value)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onClick)
 
 
 
@@ -20,39 +20,39 @@ main =
   Browser.sandbox { init = init, update = update, view = view }
 
 
-
 -- MODEL
 
-type alias Model =
-  { content : String
-  }
-
+type alias Model = { money : Int, time : Int }
 
 init : Model
 init =
-  { content = "kljqsdfmjk" }
+    { money = 0, time = 0 }
+
+
+
+
 
 
 -- UPDATE
 
 
 type Msg
-  = Change String
+  = IncrementMoney
+
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-      Change string ->
-        { model | content = string }
+      IncrementMoney ->
+        {  model|money = model.money + 1, time = 0}
 
 
 -- VIEW
 
-
 view : Model -> Html Msg
 view model =
   div []
-    [ input [placeholder "texte à inverser", value model.content, onInput Change]  []
-    ,
-    div [] [text (String.reverse model.content)]
+    [
+    div [] [ text ( (String.fromInt model.money ) ++ " €")]
+    , button [ onClick IncrementMoney ] [ text "Travail (1€)" ]
     ]
